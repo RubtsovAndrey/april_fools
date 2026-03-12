@@ -8,10 +8,16 @@ import VictoryScreen from './components/VictoryScreen'
 import ResultCard from './components/ResultCard'
 import AudioManager from './components/AudioManager'
 import { createInitialState, applyChoice, pickNextCard } from './engine/gameEngine'
+import { preloadTitleScreen, preloadEarlyGame, preloadEraAssets, preloadEndScreens } from './utils/preloader'
 
 export default function App() {
   const [gameState, setGameState] = useState(createInitialState())
   const [currentCard, setCurrentCard] = useState(null)
+
+  // Preload title screen immediately, then early game assets in background
+  useEffect(() => {
+    preloadTitleScreen().then(() => preloadEarlyGame())
+  }, [])
 
   // Pick next card when entering game screen or after swipe
   useEffect(() => {
@@ -44,7 +50,12 @@ export default function App() {
   }, [])
 
   const handleEraTransitionComplete = useCallback(() => {
-    setGameState(prev => ({ ...prev, screen: 'game' }))
+    setGameState(prev => {
+      // Preload next era assets and end screens in background
+      preloadEraAssets(prev.currentEraIndex + 1)
+      if (prev.currentEraIndex >= 4) preloadEndScreens()
+      return { ...prev, screen: 'game' }
+    })
     setCurrentCard(null)
   }, [])
 

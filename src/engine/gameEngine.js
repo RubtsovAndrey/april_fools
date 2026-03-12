@@ -115,7 +115,7 @@ const DOOM_GAME_OVERS = {
   },
   doom_moscow: {
     title: 'Не по зубам',
-    subtitle: 'Не окрепшая сеть раздавлена конкуренцией.',
+    subtitle: 'Неокрепшая сеть раздавлена конкуренцией.',
     image: '/screens/gameover/doom_moscow.png',
     isDoom: true,
   },
