@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import asset from '../utils/asset'
 
 export default function StartScreen({ onStart }) {
   const [unlocked, setUnlocked] = useState(false)
@@ -17,7 +18,7 @@ export default function StartScreen({ onStart }) {
       {/* Background image — no overlay, shown as-is */}
       <div className="absolute inset-0">
         <img
-          src="/screens/screen_title.png"
+          src={asset('/screens/screen_title.png')}
           alt=""
           className="w-full h-full object-cover"
           onError={(e) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { RESOURCE_LABELS } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 const RESOURCE_KEYS = ['money', 'customers', 'partners', 'it']
 const MYSTERY_KEY = 'mystery'
@@ -31,7 +32,7 @@ function ResourceIcon({ resourceKey, value, prevValue, showAffected }) {
         style={{ backgroundColor: '#3D2B1F' }}
       >
         <img
-          src={label.icon}
+          src={asset(label.icon)}
           alt={label.name}
           className="w-7 h-7 object-contain"
           onError={(e) => {

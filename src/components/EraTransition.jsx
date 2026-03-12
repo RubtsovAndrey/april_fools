@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { eras } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 export default function EraTransition({ eraIndex, onContinue }) {
   const [revealed, setRevealed] = useState(false)
@@ -18,7 +19,7 @@ export default function EraTransition({ eraIndex, onContinue }) {
       {/* Background transition image — no overlay, shown as-is */}
       <div className="absolute inset-0">
         <img
-          src={era?.transition}
+          src={asset(era?.transition || '')}
           alt=""
           className="w-full h-full object-cover animate-fade-in"
           onError={(e) => { e.target.style.display = 'none' }}

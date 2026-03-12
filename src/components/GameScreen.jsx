@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import Card from './Card'
 import ResourcePanel from './ResourcePanel'
 import { eras } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 export default function GameScreen({ gameState, currentCard, onSwipe, onMysteryCheat }) {
   const [prevResources, setPrevResources] = useState(null)
@@ -29,7 +30,7 @@ export default function GameScreen({ gameState, currentCard, onSwipe, onMysteryC
       {/* Background — switches to pizzeria bg during pizzeria cards */}
       <div className="absolute inset-0">
         <img
-          src={isPizzeria ? '/backgrounds/bg_pizzeria.jpg' : currentEra?.background}
+          src={asset(isPizzeria ? '/backgrounds/bg_pizzeria.jpg' : (currentEra?.background || ''))}
           alt=""
           className="w-full h-full object-cover transition-opacity duration-1000"
           onError={(e) => {

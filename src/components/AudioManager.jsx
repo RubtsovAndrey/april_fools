@@ -1,20 +1,21 @@
 import { useEffect, useRef, useCallback } from 'react'
+import asset from '../utils/asset'
 
 const TRACKS = {
-  title: { src: '/music/music_title.mp3', loop: true },
-  prologue: { src: '/music/music_prologue.mp3', loop: true },
-  era1: { src: '/music/music_era1.mp3', loop: true },
-  era2: { src: '/music/music_era2.mp3', loop: true },
-  era3: { src: '/music/music_era3.mp3', loop: true },
-  era4: { src: '/music/music_era4.mp3', loop: true },
-  era5: { src: '/music/music_era5.mp3', loop: true },
-  era6: { src: '/music/music_era6.mp3', loop: true },
-  era7: { src: '/music/music_era7.mp3', loop: true },
-  finale: { src: '/music/music_finale.mp3', loop: true },
-  rickroll: { src: '/music/music_rickroll.mp3', loop: true },
-  victory: { src: '/music/music_victory.mp3', loop: false },
-  gameover_1: { src: '/music/music_gameover_1.mp3', loop: false },
-  gameover_2: { src: '/music/music_gameover_2.mp3', loop: false },
+  title: { src: asset('/music/music_title.mp3'), loop: true },
+  prologue: { src: asset('/music/music_prologue.mp3'), loop: true },
+  era1: { src: asset('/music/music_era1.mp3'), loop: true },
+  era2: { src: asset('/music/music_era2.mp3'), loop: true },
+  era3: { src: asset('/music/music_era3.mp3'), loop: true },
+  era4: { src: asset('/music/music_era4.mp3'), loop: true },
+  era5: { src: asset('/music/music_era5.mp3'), loop: true },
+  era6: { src: asset('/music/music_era6.mp3'), loop: true },
+  era7: { src: asset('/music/music_era7.mp3'), loop: true },
+  finale: { src: asset('/music/music_finale.mp3'), loop: true },
+  rickroll: { src: asset('/music/music_rickroll.mp3'), loop: true },
+  victory: { src: asset('/music/music_victory.mp3'), loop: false },
+  gameover_1: { src: asset('/music/music_gameover_1.mp3'), loop: false },
+  gameover_2: { src: asset('/music/music_gameover_2.mp3'), loop: false },
 }
 
 const GAMEOVER_KEYS = ['gameover_1', 'gameover_2']

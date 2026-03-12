@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react'
+import asset from '../utils/asset'
 
 export default function ResultCard({ resultCard, onDismiss }) {
   const [dragX, setDragX] = useState(0)
@@ -91,7 +92,7 @@ export default function ResultCard({ resultCard, onDismiss }) {
             }}
           >
             <img
-              src="/cards/card_back.png"
+              src={asset('/cards/card_back.png')}
               alt=""
               className="w-full h-full object-cover rounded-xl opacity-60"
               onError={(e) => { e.target.style.display = 'none' }}
@@ -124,7 +125,7 @@ export default function ResultCard({ resultCard, onDismiss }) {
               style={{ height: '45%' }}
             >
               <img
-                src="/characters/result_card.png"
+                src={asset('/characters/result_card.png')}
                 alt="Результат"
                 className="w-full h-full object-cover"
                 onError={(e) => {

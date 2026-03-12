@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { RESOURCE_LABELS } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 export default function VictoryScreen({ gameState, onRestart }) {
   const [revealed, setRevealed] = useState(false)
@@ -14,7 +15,7 @@ export default function VictoryScreen({ gameState, onRestart }) {
       {/* Background — no overlay */}
       <div className="absolute inset-0">
         <img
-          src="/screens/screen_victory.png"
+          src={asset('/screens/screen_victory.png')}
           alt=""
           className="w-full h-full object-cover animate-fade-in"
           onError={(e) => { e.target.style.display = 'none' }}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import asset from '../utils/asset'
 
 export default function PrologueScreen({ onComplete }) {
   const [step, setStep] = useState(0)
@@ -25,7 +26,7 @@ export default function PrologueScreen({ onComplete }) {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="/screens/screen_prologue.png"
+          src={asset('/screens/screen_prologue.png')}
           alt=""
           className="w-full h-full object-cover"
           onError={(e) => { e.target.style.display = 'none' }}

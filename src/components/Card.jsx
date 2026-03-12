@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import characters from '../data/characters'
 import { RESOURCE_LABELS } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 export default function Card({ card, onSwipe, onHoverDirection }) {
   const [dragX, setDragX] = useState(0)
@@ -109,7 +110,7 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
         }}
       >
         <img
-          src="/cards/card_back.png"
+          src={asset('/cards/card_back.png')}
           alt=""
           className="w-full h-full object-cover rounded-xl opacity-60"
           onError={(e) => { e.target.style.display = 'none' }}
@@ -143,7 +144,7 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
         >
           {character?.isVideo ? (
             <video
-              src={character.image}
+              src={asset(character.image)}
               autoPlay
               loop
               muted
@@ -152,7 +153,7 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
             />
           ) : (
             <img
-              src={character?.image}
+              src={asset(character?.image || '')}
               alt={character?.name}
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -185,7 +186,7 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
           {card.affects?.map(key => (
             <img
               key={key}
-              src={RESOURCE_LABELS[key]?.icon}
+              src={asset(RESOURCE_LABELS[key]?.icon || '')}
               alt={key}
               className="w-4 h-4 opacity-60"
               onError={(e) => {

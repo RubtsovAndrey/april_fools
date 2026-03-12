@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { RESOURCE_LABELS } from '../engine/gameEngine'
+import asset from '../utils/asset'
 
 export default function GameOverScreen({ gameOver, gameState, onRestart }) {
   const [revealed, setRevealed] = useState(false)
@@ -20,7 +21,7 @@ export default function GameOverScreen({ gameOver, gameState, onRestart }) {
       {/* Full-screen game over image */}
       <div className="absolute inset-0">
         <img
-          src={gameOver.image}
+          src={asset(gameOver.image)}
           alt={gameOver.title}
           className="w-full h-full object-cover animate-fade-in"
           onError={(e) => {
