@@ -65,6 +65,19 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
     }
   }, [isDragging, swipeAnim, onSwipe])
 
+  const handleChoiceClick = useCallback((direction) => {
+    if (swipeAnim || isDragging) return
+    setSwipeAnim({ direction, fromX: 0 })
+    onHoverDirection?.(direction)
+    const swipeDuration = isPizzeria ? 700 : 350
+    setTimeout(() => {
+      onSwipe(direction)
+      setSwipeAnim(null)
+      setDragX(0)
+      lastDragX.current = 0
+    }, swipeDuration)
+  }, [swipeAnim, isDragging, isPizzeria, onSwipe, onHoverDirection])
+
   const rotation = dragX * 0.08
 
   // When swiping away, animate from current position to off-screen
@@ -206,20 +219,24 @@ export default function Card({ card, onSwipe, onHoverDirection }) {
           }}
         >
           <div
-            className={`flex-1 text-center transition-all duration-200 ${
+            className={`flex-1 text-center transition-all duration-200 cursor-pointer ${
               hoverDir === 'left' ? 'text-dodo-orange scale-110 font-bold' : 'text-dodo-beige/60'
             }`}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={() => handleChoiceClick('left')}
           >
-            <p className="text-[10px] uppercase tracking-wider mb-0.5">← Свайп</p>
+            <p className="text-[10px] uppercase tracking-wider mb-0.5">←</p>
             <p className="card-choice-text leading-tight">{leftChoice.label}</p>
           </div>
           <div className="w-px h-8 bg-dodo-beige/10" />
           <div
-            className={`flex-1 text-center transition-all duration-200 ${
+            className={`flex-1 text-center transition-all duration-200 cursor-pointer ${
               hoverDir === 'right' ? 'text-dodo-orange scale-110 font-bold' : 'text-dodo-beige/60'
             }`}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={() => handleChoiceClick('right')}
           >
-            <p className="text-[10px] uppercase tracking-wider mb-0.5">Свайп →</p>
+            <p className="text-[10px] uppercase tracking-wider mb-0.5">→</p>
             <p className="card-choice-text leading-tight">{rightChoice.label}</p>
           </div>
         </div>

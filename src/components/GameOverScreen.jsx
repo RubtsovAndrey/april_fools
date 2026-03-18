@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { RESOURCE_LABELS } from '../engine/gameEngine'
 import asset from '../utils/asset'
 
-export default function GameOverScreen({ gameOver, gameState, onRestart }) {
+export default function GameOverScreen({ gameOver, gameState, onRestart, onContinue, continueCheat }) {
   const [revealed, setRevealed] = useState(false)
 
   useEffect(() => {
@@ -101,18 +101,32 @@ export default function GameOverScreen({ gameOver, gameState, onRestart }) {
           </div>
         )}
 
-        {/* Restart button */}
+        {/* Action buttons */}
         {revealed && (
-          <button
-            onClick={onRestart}
-            className="px-8 py-3 border border-dodo-beige/30 rounded-lg
-              text-dodo-beige font-title text-lg tracking-wider
-              hover:bg-dodo-orange hover:text-white hover:border-transparent
-              transition-all duration-300 animate-slide-up"
-            style={{ animationDelay: '0.2s', textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
-          >
-            ПОПРОБОВАТЬ СНОВА
-          </button>
+          <div className="flex items-center gap-4 justify-center">
+            {continueCheat && (
+              <button
+                onClick={onContinue}
+                className="px-8 py-3 border border-dodo-orange/50 rounded-lg
+                  text-dodo-orange font-title text-lg tracking-wider
+                  hover:bg-dodo-orange hover:text-white hover:border-transparent
+                  transition-all duration-300 animate-slide-up"
+                style={{ animationDelay: '0.1s', textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+              >
+                ПРОДОЛЖИТЬ
+              </button>
+            )}
+            <button
+              onClick={onRestart}
+              className="px-8 py-3 border border-dodo-beige/30 rounded-lg
+                text-dodo-beige font-title text-lg tracking-wider
+                hover:bg-dodo-orange hover:text-white hover:border-transparent
+                transition-all duration-300 animate-slide-up"
+              style={{ animationDelay: '0.2s', textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+            >
+              ПОПРОБОВАТЬ СНОВА
+            </button>
+          </div>
         )}
       </div>
     </div>

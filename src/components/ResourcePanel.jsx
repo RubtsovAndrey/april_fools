@@ -63,7 +63,7 @@ export default function ResourcePanel({ resources, prevResources, affectedResour
     clickCount.current += 1
     if (clickTimer.current) clearTimeout(clickTimer.current)
     clickTimer.current = setTimeout(() => { clickCount.current = 0 }, 2000)
-    if (clickCount.current >= 7) {
+    if (clickCount.current >= 3) {
       clickCount.current = 0
       onMysteryCheat?.()
     }

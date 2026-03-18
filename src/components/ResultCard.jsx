@@ -52,6 +52,18 @@ export default function ResultCard({ resultCard, onDismiss }) {
     }
   }, [isDragging, swipeAnim, onDismiss])
 
+  const handleDismissClick = useCallback(() => {
+    if (swipeAnim || isDragging) return
+    const direction = Math.random() > 0.5 ? 'right' : 'left'
+    setSwipeAnim({ direction, fromX: 0 })
+    setTimeout(() => {
+      onDismiss()
+      setSwipeAnim(null)
+      setDragX(0)
+      lastDragX.current = 0
+    }, 350)
+  }, [swipeAnim, isDragging, onDismiss])
+
   const rotation = dragX * 0.08
 
   const getCardStyle = () => {
@@ -152,17 +164,19 @@ export default function ResultCard({ resultCard, onDismiss }) {
               </p>
             </div>
 
-            {/* Swipe hint at bottom */}
+            {/* Dismiss hint at bottom — clickable */}
             <div
-              className="flex items-center justify-center rounded-b-xl"
+              className="flex items-center justify-center rounded-b-xl cursor-pointer hover:bg-white/5 transition-colors"
               style={{
                 height: '15%',
                 backgroundColor: 'rgba(27, 31, 59, 0.5)',
                 borderTop: '1px solid rgba(212, 197, 169, 0.1)',
               }}
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={handleDismissClick}
             >
-              <p className="text-dodo-beige/30 text-xs uppercase tracking-widest">
-                ← Свайп для продолжения →
+              <p className="text-dodo-beige/40 text-xs uppercase tracking-widest">
+                Нажмите или свайпните
               </p>
             </div>
           </div>

@@ -293,7 +293,7 @@ const cards = [
     id: 'e3_03',
     character: 'cto',
     era: 3,
-    text: 'Веб-камеры на кухне — клиенты смогут смотреть, как готовится их пицца онлайн. Зачем?',
+    text: 'Веб-камеры на кухне — клиенты смогут смотреть, как готовится их пицца онлайн. Можно, а зачем?',
     choiceLeft: { label: 'Лишние расходы', effects: { money: 5, customers: -5, partners: 0, it: -5 } },
     choiceRight: { label: 'Ставим камеры везде', effects: { money: -10, customers: 15, partners: 0, it: 10 } },
     affects: ['money', 'customers', 'it'],

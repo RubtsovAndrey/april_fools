@@ -13,6 +13,7 @@ import { preloadTitleScreen, preloadEarlyGame, preloadEraAssets, preloadEndScree
 export default function App() {
   const [gameState, setGameState] = useState(createInitialState())
   const [currentCard, setCurrentCard] = useState(null)
+  const [cheats, setCheats] = useState({ resourceReset: false, continueAfterGameOver: false })
 
   // Preload title screen immediately, then early game assets in background
   useEffect(() => {
@@ -89,14 +90,26 @@ export default function App() {
   }, [])
 
   const handleMysteryCheat = useCallback(() => {
+    if (!cheats.resourceReset) return
     setGameState(prev => ({
       ...prev,
       resources: { money: 50, customers: 50, partners: 50, it: 50, mystery: 50 },
     }))
-  }, [])
+  }, [cheats.resourceReset])
 
   const handleRestart = useCallback(() => {
     setGameState(createInitialState())
+    setCurrentCard(null)
+  }, [])
+
+  const handleContinueAfterGameOver = useCallback(() => {
+    setGameState(prev => ({
+      ...prev,
+      resources: { money: 50, customers: 50, partners: 50, it: 50, mystery: prev.resources.mystery ?? 50 },
+      gameOver: null,
+      screen: 'game',
+    }))
+    // currentCard stays null — useEffect will pick the next card
     setCurrentCard(null)
   }, [])
 
@@ -136,7 +149,7 @@ export default function App() {
         rickRollPhase={gameState.rickRollPhase || 0}
       />
       {gameState.screen === 'title' && (
-        <StartScreen onStart={handleStart} />
+        <StartScreen onStart={handleStart} cheats={cheats} onCheatsChange={setCheats} />
       )}
 
       {gameState.screen === 'prologue' && (
@@ -171,6 +184,8 @@ export default function App() {
           gameOver={gameState.gameOver}
           gameState={gameState}
           onRestart={handleRestart}
+          onContinue={handleContinueAfterGameOver}
+          continueCheat={cheats.continueAfterGameOver}
         />
       )}
 

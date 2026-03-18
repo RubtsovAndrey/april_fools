@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import asset from '../utils/asset'
 
-export default function StartScreen({ onStart }) {
+export default function StartScreen({ onStart, cheats, onCheatsChange }) {
   const [unlocked, setUnlocked] = useState(false)
   const [hovering, setHovering] = useState(false)
+  const [showCheats, setShowCheats] = useState(false)
 
   const handleTapAnywhere = () => {
     if (unlocked) return
@@ -83,6 +84,57 @@ export default function StartScreen({ onStart }) {
             >
               Свайпайте карточки влево или вправо
             </p>
+
+            {/* Cheat codes toggle */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowCheats(prev => !prev)
+              }}
+              className="text-dodo-beige/20 text-[10px] tracking-[0.2em] uppercase mt-2 hover:text-dodo-beige/40 transition-colors animate-slide-up-delayed"
+              style={{
+                animationDelay: '0.4s',
+                textShadow: '0 1px 6px rgba(0,0,0,0.9)',
+              }}
+            >
+              чит-коды
+            </button>
+
+            {showCheats && (
+              <div
+                className="flex flex-col gap-2 mt-2 animate-slide-up"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={cheats.resourceReset}
+                    onChange={() => onCheatsChange({ ...cheats, resourceReset: !cheats.resourceReset })}
+                    className="accent-dodo-orange w-3.5 h-3.5"
+                  />
+                  <span
+                    className="text-dodo-beige/50 text-[11px] tracking-wide"
+                    style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}
+                  >
+                    Сброс ресурсов (3× нажми на ?)
+                  </span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={cheats.continueAfterGameOver}
+                    onChange={() => onCheatsChange({ ...cheats, continueAfterGameOver: !cheats.continueAfterGameOver })}
+                    className="accent-dodo-orange w-3.5 h-3.5"
+                  />
+                  <span
+                    className="text-dodo-beige/50 text-[11px] tracking-wide"
+                    style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}
+                  >
+                    Продолжить после проигрыша
+                  </span>
+                </label>
+              </div>
+            )}
           </>
         )}
       </div>
