@@ -7,6 +7,7 @@ import GameOverScreen from './components/GameOverScreen'
 import VictoryScreen from './components/VictoryScreen'
 import ResultCard from './components/ResultCard'
 import AudioManager from './components/AudioManager'
+import VolumeControl from './components/VolumeControl'
 import { createInitialState, applyChoice, pickNextCard } from './engine/gameEngine'
 import { preloadTitleScreen, preloadEarlyGame, preloadEraAssets, preloadEndScreens } from './utils/preloader'
 
@@ -14,6 +15,7 @@ export default function App() {
   const [gameState, setGameState] = useState(createInitialState())
   const [currentCard, setCurrentCard] = useState(null)
   const [cheats, setCheats] = useState({ resourceReset: false, continueAfterGameOver: false })
+  const [volume, setVolume] = useState(0.3)
 
   // Preload title screen immediately, then early game assets in background
   useEffect(() => {
@@ -147,7 +149,9 @@ export default function App() {
         screen={gameState.screen}
         eraIndex={gameState.currentEraIndex}
         rickRollPhase={gameState.rickRollPhase || 0}
+        volume={volume}
       />
+      <VolumeControl volume={volume} onVolumeChange={setVolume} />
       {gameState.screen === 'title' && (
         <StartScreen onStart={handleStart} cheats={cheats} onCheatsChange={setCheats} />
       )}

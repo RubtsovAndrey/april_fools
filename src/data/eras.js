@@ -66,7 +66,7 @@ const eras = [
     years: '2025+',
     background: '/backgrounds/bg_era7_empire.jpg',
     transition: '/screens/transitions/trans_era7.png',
-    description: 'Редомициляция. 1400+ точек. 25 стран. Стратегия 2030.',
+    description: 'Редомициляция. 1600+ точек. 25 стран. Стратегия 2030.',
     cardsNeeded: 10,
   },
 ]

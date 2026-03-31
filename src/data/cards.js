@@ -1439,9 +1439,9 @@ export const rickRollCards = [
     id: 'rick_04',
     character: 'cfo',
     isRickRoll: true,
-    text: 'Я хочу сказать тебе кое-что важное. Полное признание. Ты заслуживаешь его.',
+    text: 'Я хочу сказать тебе кое-что важное. Полное признание. Ты заслуживаешь его. Уступи место моему другу, он всё расскажет',
     choiceLeft: { label: 'Я слушаю', effects: { money: 0, customers: 0, partners: 0, it: 0 } },
-    choiceRight: { label: 'Давай, говори', effects: { money: 0, customers: 0, partners: 0, it: 0 } },
+    choiceRight: { label: 'Какому другу?', effects: { money: 0, customers: 0, partners: 0, it: 0 } },
     affects: [],
   },
   {

@@ -27,7 +27,6 @@ function getEraTrack(eraIndex) {
 
 const FADE_DURATION_DEFAULT = 1000 // ms
 const FADE_DURATION_VICTORY = 5000 // ms — slow crossfade from rickroll to victory
-const VOLUME = 0.3
 
 function resolveTrackKey(screen, eraIndex, rickRollPhase) {
   if (screen === 'title') return 'title'
@@ -47,11 +46,12 @@ function resolveTrackKey(screen, eraIndex, rickRollPhase) {
   return null
 }
 
-export default function AudioManager({ screen, eraIndex, rickRollPhase }) {
+export default function AudioManager({ screen, eraIndex, rickRollPhase, volume = 0.3 }) {
   const currentAudioRef = useRef(null)
   const currentTrackKeyRef = useRef(null)
   const fadeIntervalRef = useRef(null)
   const hasInteractedRef = useRef(false)
+  const targetVolumeRef = useRef(volume)
 
   const fadeOut = useCallback((audio, onComplete, duration = FADE_DURATION_DEFAULT) => {
     if (!audio) {
@@ -87,14 +87,15 @@ export default function AudioManager({ screen, eraIndex, rickRollPhase }) {
       })
     }
 
+    const tv = targetVolumeRef.current
     const steps = 20
     const stepTime = duration / steps
-    const volumeStep = VOLUME / steps
+    const volumeStep = tv / steps
     let current = 0
 
     const interval = setInterval(() => {
       current++
-      audio.volume = Math.min(VOLUME, audio.volume + volumeStep)
+      audio.volume = Math.min(tv, audio.volume + volumeStep)
       if (current >= steps) {
         clearInterval(interval)
       }
@@ -163,6 +164,14 @@ export default function AudioManager({ screen, eraIndex, rickRollPhase }) {
       // Cleanup only on unmount — don't stop on every re-render
     }
   }, [screen, eraIndex, rickRollPhase, fadeOut, fadeIn])
+
+  // Sync volume prop to currently playing audio
+  useEffect(() => {
+    targetVolumeRef.current = volume
+    if (currentAudioRef.current && !currentAudioRef.current.paused) {
+      currentAudioRef.current.volume = volume
+    }
+  }, [volume])
 
   // Cleanup on unmount
   useEffect(() => {
